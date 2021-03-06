@@ -14,3 +14,9 @@ class Config(object):
     PLAID_PUBLIC_KEY = os.getenv('PLAID_PUBLIC_KEY')
 
     PLAID_ENV = os.getenv('PLAID_ENV', 'sandbox')
+
+    IBAN = os.getenv('IBAN')
+    ADDRESS = os.getenv('ADDRESS')
+    BACS = os.getenv('BACS')
+    RECIPIENT_NAME = os.getenv('RECIPIENT_NAME', 'YOLO')
+    REFERENCE = os.getenv('REFERENCE', 'YOLO Payment')
