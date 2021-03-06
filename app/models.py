@@ -14,6 +14,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(32), index=True, unique=True)
     email = db.Column(db.String(128), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    #plaid_access_token = db.Column(db.String)
 
     def __init__(self, username):
         self.username = username

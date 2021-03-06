@@ -9,7 +9,7 @@
 (async function($) {
   var handler = Plaid.create({
     // Create a new link_token to initialize Link
-    token: (await $.post('/create_link_token')).link_token,
+    token: (await $.post('/create-link-token-balance')).link_token,
     onLoad: function() {
       // Optional, called when Link loads
     },
