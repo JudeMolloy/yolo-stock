@@ -9,6 +9,8 @@ flask-sqlalchemy = "*"
 flask-login = "*"
 flask-wtf = "*"
 flask-migrate = "*"
+plaid = "*"
+plaid-python = "*"
 
 [dev-packages]
 

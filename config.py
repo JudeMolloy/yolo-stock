@@ -8,3 +8,9 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
                               'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    PLAID_CLIENT_ID = os.getenv('PLAID_CLIENT_ID')
+    PLAID_SECRET = os.getenv('PLAID_SECRET')
+    PLAID_PUBLIC_KEY = os.getenv('PLAID_PUBLIC_KEY')
+
+    PLAID_ENV = os.getenv('PLAID_ENV', 'sandbox')
