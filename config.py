@@ -3,8 +3,14 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'This is a very big secret'
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'VERY DIFFICULT TO GUESS OK?'
 
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
                               'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    PLAID_CLIENT_ID = os.getenv('PLAID_CLIENT_ID')
+    PLAID_SECRET = os.getenv('PLAID_SECRET')
+    PLAID_PUBLIC_KEY = os.getenv('PLAID_PUBLIC_KEY')
+
+    PLAID_ENV = os.getenv('PLAID_ENV', 'sandbox')
