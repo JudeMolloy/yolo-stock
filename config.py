@@ -14,3 +14,8 @@ class Config(object):
     PLAID_PUBLIC_KEY = os.getenv('PLAID_PUBLIC_KEY')
 
     PLAID_ENV = os.getenv('PLAID_ENV', 'sandbox')
+
+    IG_API_KEY = os.getenv('IG_API_KEY')
+    IG_API_USERNAME = os.getenv('IG_API_USERNAME')
+    IG_API_PASSWORD = os.getenv('IG_API_PASSWORD')
+    
