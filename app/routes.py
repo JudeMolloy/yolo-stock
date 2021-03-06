@@ -6,7 +6,6 @@ from app.forms import LoginForm, CreateAccountForm
 
 
 @app.route('/')
-@app.route('/index')
 def index():
     return "Hello, World!"
 
