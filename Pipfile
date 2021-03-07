@@ -15,6 +15,7 @@ stripe = "*"
 datetime = "*"
 flask-script = "*"
 bs4 = "*"
+gunicorn = "*"
 
 [dev-packages]
 
