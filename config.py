@@ -15,8 +15,12 @@ class Config(object):
 
     PLAID_ENV = os.getenv('PLAID_ENV', 'sandbox')
 
+    STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+
     IBAN = os.getenv('IBAN')
     ADDRESS = os.getenv('ADDRESS')
     BACS = os.getenv('BACS')
     RECIPIENT_NAME = os.getenv('RECIPIENT_NAME', 'YOLO')
     REFERENCE = os.getenv('REFERENCE', 'YOLO Payment')
+
+    DOMAIN = os.getenv('DOMAIN', 'http://127.0.0.1:5000/')

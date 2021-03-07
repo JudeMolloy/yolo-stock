@@ -1,18 +1,14 @@
+import stripe
+
 from flask import url_for, redirect, render_template, flash, jsonify, request
 from app import app, plaid_client
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User
+from app.models import User, Order
 from app.forms import LoginForm, CreateAccountForm
 from config import Config
 
-IBAN = Config.IBAN
-ADDRESS = Config.ADDRESS
-RECIPIENT_NAME = Config.RECIPIENT_NAME
-BACS = Config.BACS
-REFERENCE = Config.REFERENCE
-
-access_token = None
-public_token = None
+DOMAIN = Config.DOMAIN
+stripe.api_key = Config.STRIPE_SECRET_KEY
 
 
 @app.route('/')
@@ -29,25 +25,57 @@ def link_bank():
 @app.route('/start')
 @login_required
 def start():
+
     if request.method == "POST":
-
-        recipient_response = plaid_client.PaymentInitiation.create_recipient(
-            RECIPIENT_NAME,
-            None,  # IBAN
-            None,  # Address
-            bacs = BACS
-        )
-        recipient_id = recipient_response["recipient_id"]
-
         data = request.form
         amount = data['amount']
-        payment_response = plaid_client.PaymentInitiation.create_payment(
-            recipient_id,
-            REFERENCE,
-            amount
-        )
-        payment_id = payment_response["payment_id"]
-        status = payment_response["status"]
+        stock_name = data['stock-name']
+        price = data['price']
+        order = Order(stock_name=stock_name, amount=amount, user_id=current_user.id)
+        order.save_to_db()
+
+    return render_template("start.html")
+
+
+@app.route('/create-checkout-session', methods=['POST'])
+def create_checkout_session():
+
+    # Fetch most recent order for account
+    order = Order.query.filter_by(user_id=current_user.id).order_by(Order.datetime.desc()).first()
+    amount = order.amount
+    stock_name = order.stock_name
+
+
+    success_url = DOMAIN + url_for('payment_success')
+    cancel_url = DOMAIN + url_for('payment_cancel')
+    session = stripe.checkout.Session.create(
+    payment_method_types=['card'],
+    line_items=[{
+      'price_data': {
+        'currency': 'GBP',
+        'product_data': {
+          'name': stock_name,
+        },
+        'unit_amount': amount,
+      },
+      'quantity': 1,
+    }],
+    mode='payment',
+    success_url=success_url,
+    cancel_url=cancel_url,
+    )
+
+    return jsonify(id=session.id)
+
+
+@app.route('/payment-success')
+def payment_success():
+    return "Successful Payment"
+
+
+@app.route('/payment-cancel')
+def payment_cancel():
+    return "Cancel Payment"
 
 
 @app.route("/get_access_token", methods=['POST'])
@@ -63,7 +91,7 @@ def get_access_token():
     response = plaid_client.Accounts.balance.get(access_token)
     accounts = response['accounts']
     print(accounts)
-    return jsonify(accounts)
+    return redirect(url_for('start'))
 
 
 @app.route("/create-link-token-balance", methods=['POST'])
@@ -87,28 +115,6 @@ def create_link_token_balance():
     # Send the data to the client
     return jsonify(response)
 
-
-@app.route("/create-link-token-payment", methods=['POST'])
-def create_link_token_payment():
-    # Get the client_user_id by searching for the current user
-    plaid_client_user_id = str(current_user.id)
-    # Create a link_token for the given user
-    response = plaid_client.LinkToken.create({
-      'user': {
-        'client_user_id': plaid_client_user_id,
-      },
-      'products': ['payment_initiation'],
-      'client_name': 'My App',
-      'country_codes': ['GB'],
-      'language': 'en',
-      'webhook': 'https://webhook.sample.com',
-      'payment_initiation': {
-        'payment_id': plaid_payment_id,
-      }
-    })
-    link_token = response['link_token']
-    # Send the data to the client
-    return jsonify(response)
 
 
 @app.route('/create-account', methods=['GET', 'POST'])
