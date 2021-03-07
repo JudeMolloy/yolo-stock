@@ -11,6 +11,9 @@ flask-wtf = "*"
 flask-migrate = "*"
 plaid-python = "*"
 python-dotenv = "*"
+stripe = "*"
+datetime = "*"
+flask-script = "*"
 
 [dev-packages]
 
