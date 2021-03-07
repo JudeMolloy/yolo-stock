@@ -7,3 +7,28 @@ h2,
 h3 {
   color: #2c3539;
 }
+
+
+body {
+	margin: 0;
+	padding: 50px;
+}
+
+input {
+	border: none;
+	outline: none;
+	padding: 12px;
+	background-color: #f5f5f5;
+	transition: 0.2s;
+}
+
+input:focus {
+	background-color: #f1f1f1;
+}
+
+input[type="submit"] {
+	padding: 16px;
+	background-color: #24D982;
+	color: #fff;
+	cursor: pointer;
+}
