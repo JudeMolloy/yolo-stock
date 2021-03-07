@@ -55,18 +55,27 @@ class OrderAPI:
         self.headers["X-SECURITY-TOKEN"] = self.X_SECURITY_TOKEN
         print("Updated security tokens", self.CST, self.X_SECURITY_TOKEN)
 
-    def create_order(self, currency, epic, size):
+    def create_order(self, epic):
         order = {
-            "currencyCode": currency, #Eg USD, GBP
+            "currencyCode": "USD", #Eg USD, GBP
             "epic": epic, #This is meant to tell you what stock is but idk tbh
             "expiry": "DFB", #keep this at DFB probably
             "direction": "BUY", #Keep at buy
-            "size": size, #I think this is amount
+            "size": "1", #I think this is amount
             "forceOpen": True, #Enables a second position to be opened
             "guaranteedStop": False, #Stop loss is for losers
             "orderType": "MARKET" #Executed at any price
         }
         return order
+
+    def get_price(self, ticker):
+        try:
+            response = requests.get("https://demo-api.ig.com/gateway/deal/markets", params={'searchTerm': ticker}, headers=self.headers)
+            response.raise_for_status()
+        except requests.exceptions.HTTPError as err:
+            raise SystemExit(err)
+        response = response.json()
+        return response["markets"][0]["offer"]
 
     def get_epic(self, ticker):
         try:
@@ -75,7 +84,6 @@ class OrderAPI:
         except requests.exceptions.HTTPError as err:
             raise SystemExit(err)
         response = response.json()
-        print(response["markets"][0]["epic"])
         return response["markets"][0]["epic"]
 
     def execute_order(self, order):
@@ -88,9 +96,9 @@ class OrderAPI:
             raise SystemExit(err)
         print("success")
 
-print(Config.IG_API_KEY)
+#print(Config.IG_API_KEY)
 
-test = OrderAPI("f6e357f2b8a0083bd5b89bd188e64ae2e159c1b4", "demoaccount20212", "2JRjuUL7ypv3")
-test.get_tokens()
-testorder = test.create_order("USD", test.get_epic("AMD"), "3")
-test.execute_order(testorder)
+#test = OrderAPI("f6e357f2b8a0083bd5b89bd188e64ae2e159c1b4", "demoaccount20212", "2JRjuUL7ypv3")
+#test.get_tokens()
+#testorder = test.create_order("USD", test.get_epic("AMD"))
+#test.execute_order(testorder)
