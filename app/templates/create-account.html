@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Create Account</h1>
+    <h1 class='text-head'>Create Account</h1>
     <form method="POST">
         {{ form.hidden_tag() }}
         <p>
-            {{ form.username(size=32, placeholder=form.username.label) }}<br>
+            {{ form.username(placeholder=form.username.label.text) }}<br>
             {% for error in form.username.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.password(size=32, placeholder=form.password.label) }}<br>
+            {{ form.password(placeholder=form.password.label.text) }}<br>
             {% for error in form.password.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.password2(size=32, placeholder=form.password2.label) }}<br>
+            {{ form.password2(placeholder=form.password2.label.text) }}<br>
             {% for error in form.password2.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
