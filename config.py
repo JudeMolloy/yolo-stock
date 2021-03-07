@@ -21,13 +21,10 @@ class Config(object):
     IG_API_USERNAME = os.getenv('IG_API_USERNAME')
     IG_API_PASSWORD = os.getenv('IG_API_PASSWORD')
 
-
     IBAN = os.getenv('IBAN')
     ADDRESS = os.getenv('ADDRESS')
     BACS = os.getenv('BACS')
     RECIPIENT_NAME = os.getenv('RECIPIENT_NAME', 'YOLO')
     REFERENCE = os.getenv('REFERENCE', 'YOLO Payment')
 
-
     DOMAIN = os.getenv('DOMAIN', 'http://127.0.0.1:5000/')
-

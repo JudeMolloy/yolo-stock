@@ -1,5 +1,11 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+venv
+logs
+dump.rdb
+celerybeat-schedule
+Pipfile.lock
+
 # dependencies
 /node_modules
 /.pnp
@@ -30,3 +36,24 @@ yarn-error.log*
 *.db
 app.db
 
+
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
