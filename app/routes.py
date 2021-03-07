@@ -6,6 +6,9 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Order
 from app.forms import LoginForm, CreateAccountForm
 from config import Config
+from randomstock import get_ticket_array, get_stock
+from apiscript import OrderAPI
+from update_tickers import run
 
 DOMAIN = Config.DOMAIN
 stripe.api_key = Config.STRIPE_SECRET_KEY
@@ -22,18 +25,21 @@ def link_bank():
     return render_template('link-bank.html')
 
 
+
 @app.route('/start')
 @login_required
 def start():
     user = User.query.filter_by(id=current_user.id).first_or_404()
     bank_balance = user.bank_balance
     print(bank_balance)
-
     if request.method == "POST":
         data = request.form
         amount = data['amount']
         stock_name = data['stock-name']
         price = data['price']
+        stock_array = get()
+        ticker_prices = get_ticket_array(stock_array, amount, OrderAPI("f6e357f2b8a0083bd5b89bd188e64ae2e159c1b4", "demoaccount20212", "2JRjuUL7ypv3"))
+        stock_to_buy = get_stock(ticker_prices)
         order = Order(stock_name=stock_name, amount=amount, user_id=current_user.id)
         order.save_to_db()
 
