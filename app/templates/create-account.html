@@ -7,19 +7,19 @@
         <p>
             {{ form.username(placeholder=form.username.label.text) }}<br>
             {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.password(placeholder=form.password.label.text) }}<br>
             {% for error in form.password.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.password2(placeholder=form.password2.label.text) }}<br>
             {% for error in form.password2.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>{{ form.submit() }}</p>
