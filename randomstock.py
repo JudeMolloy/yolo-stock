@@ -15,15 +15,17 @@ def get_ticket_array(tickers, amount, order):
             ticker_prices.append(temp)
     return ticker_prices
     
-def yolo(ticker_prices, order):
-    tickers = [d["ticker"] for d in ticker_prices]
-    stock = random.choice(tickers)
-    print(stock)
-    stock_order = order.create_order(order.get_epic(stock))
+def get_stock(ticker_prices):
+    stock = random.choice(ticker_prices)
+    return stock
+
+def yolo(order, stock):
+    stock_order = order.create_order(order.get_epic(stock["ticker"]))
     reference = order.execute_order(stock_order)
 
 demo_tickers = ["TSLA", "AMD", "AAPL", "PLTR", "SHOP", "BB", "UBER"]
 amount = 10000000
 
 test.get_tokens()
-yolo(get_ticket_array(demo_tickers, amount, test), test)
+ticker_prices = get_ticket_array(demo_tickers, amount, test)
+print(get_stock(ticker_prices))
