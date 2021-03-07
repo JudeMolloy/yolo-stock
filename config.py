@@ -15,21 +15,19 @@ class Config(object):
 
     PLAID_ENV = os.getenv('PLAID_ENV', 'sandbox')
 
-<<<<<<< HEAD
     STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
-=======
+
     IG_API_KEY = os.getenv('IG_API_KEY')
     IG_API_USERNAME = os.getenv('IG_API_USERNAME')
     IG_API_PASSWORD = os.getenv('IG_API_PASSWORD')
->>>>>>> 1c779e31f660227e33e00f0fd3e47a9516ede0b9
+
 
     IBAN = os.getenv('IBAN')
     ADDRESS = os.getenv('ADDRESS')
     BACS = os.getenv('BACS')
     RECIPIENT_NAME = os.getenv('RECIPIENT_NAME', 'YOLO')
     REFERENCE = os.getenv('REFERENCE', 'YOLO Payment')
-<<<<<<< HEAD
+
 
     DOMAIN = os.getenv('DOMAIN', 'http://127.0.0.1:5000/')
-=======
->>>>>>> 1c779e31f660227e33e00f0fd3e47a9516ede0b9
+
