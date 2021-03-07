@@ -25,6 +25,8 @@ def link_bank():
 @app.route('/start')
 @login_required
 def start():
+    user = User.query.filter_by(id=current_user.id).first_or_404()
+    bank_balance = user.bank_balance
 
     if request.method == "POST":
         data = request.form
@@ -34,7 +36,7 @@ def start():
         order = Order(stock_name=stock_name, amount=amount, user_id=current_user.id)
         order.save_to_db()
 
-    return render_template("start.html")
+    return render_template("start.html", bank_balance=bank_balance)
 
 
 @app.route('/create-checkout-session', methods=['POST'])
@@ -91,6 +93,13 @@ def get_access_token():
     response = plaid_client.Accounts.balance.get(access_token)
     accounts = response['accounts']
     print(accounts)
+    print(accounts[0])
+    print(accounts[0]['balances'])
+    print(accounts[0]['balances']['available'])
+    available = accounts[0]['balances']['available']
+    user = User.query.filter_by(id=current_user.id).first()
+    if user:
+        user.bank_balance = available
     return redirect(url_for('start'))
 
 
@@ -145,9 +154,11 @@ def login():
         return redirect(url_for('index'))
     return render_template('login.html', form=form)
 
+
 @app.route("/dashboard")
 def dashboard():
     return render_template('dashboard.html')
+
 
 @app.route('/logout')
 def logout():

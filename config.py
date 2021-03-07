@@ -16,6 +16,7 @@ class Config(object):
     PLAID_ENV = os.getenv('PLAID_ENV', 'sandbox')
 
     STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+
     IG_API_KEY = os.getenv('IG_API_KEY')
     IG_API_USERNAME = os.getenv('IG_API_USERNAME')
     IG_API_PASSWORD = os.getenv('IG_API_PASSWORD')
