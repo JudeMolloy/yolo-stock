@@ -19,7 +19,7 @@
       // Select Account view is enabled.
       $.post('/get_access_token', {
         public_token: public_token,
-      }, redirect());
+      }, success=redirect());
     },
     onExit: function(err, metadata) {
       // The user exited the Link flow.

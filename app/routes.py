@@ -27,6 +27,7 @@ def link_bank():
 def start():
     user = User.query.filter_by(id=current_user.id).first_or_404()
     bank_balance = user.bank_balance
+    print(bank_balance)
 
     if request.method == "POST":
         data = request.form
@@ -92,14 +93,13 @@ def get_access_token():
     access_token = exchange_response['access_token']
     response = plaid_client.Accounts.balance.get(access_token)
     accounts = response['accounts']
-    print(accounts)
-    print(accounts[0])
-    print(accounts[0]['balances'])
+
     print(accounts[0]['balances']['available'])
     available = accounts[0]['balances']['available']
     user = User.query.filter_by(id=current_user.id).first()
     if user:
         user.bank_balance = available
+        user.save_to_db()
     return redirect(url_for('start'))
 
 
@@ -151,7 +151,7 @@ def login():
             flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
-        return redirect(url_for('index'))
+        return redirect(url_for('link_bank'))
     return render_template('login.html', form=form)
 
 

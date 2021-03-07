@@ -21,7 +21,7 @@ def upgrade():
     op.create_table('order',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('stock_name', sa.String(length=16), nullable=False),
-    sa.Column('amount', sa.Integer(), nullable=False),
+    sa.Column('amount', sa.Float(), nullable=False),
     sa.Column('datetime', sa.DateTime(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
