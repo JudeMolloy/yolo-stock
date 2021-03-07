@@ -160,6 +160,11 @@ def dashboard():
     return render_template('dashboard.html')
 
 
+@app.route("/done")
+def done():
+    return render_template('done.html')
+
+
 @app.route('/logout')
 def logout():
     logout_user()
