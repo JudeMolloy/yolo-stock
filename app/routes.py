@@ -38,7 +38,7 @@ def start():
         stock_name = data['stock-name']
         price = data['price']
         stock_array = get()
-        ticker_prices = get_ticket_array(stock_array, amount, OrderAPI("f6e357f2b8a0083bd5b89bd188e64ae2e159c1b4", "demoaccount20212", "2JRjuUL7ypv3"))
+        ticker_prices = get_ticket_array(stock_array, amount, OrderAPI("apikey", "demoaccount20212", "apipass"))
         stock_to_buy = get_stock(ticker_prices)
         order = Order(stock_name=stock_name, amount=amount, user_id=current_user.id)
         order.save_to_db()

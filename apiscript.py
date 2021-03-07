@@ -4,7 +4,7 @@ from config import Config
 
 
 headers = {
-    "X-IG-API-KEY": "f6e357f2b8a0083bd5b89bd188e64ae2e159c1b4",
+    "X-IG-API-KEY": "apikey",
     "X-SECURITY-TOKEN": "bae8afa438e9b4fa579008823963e15731f7eb7ff00114a30fa9569e96cd33CD01111",
     "CST": "6d7141b70f236e3b8025ba551cad09d90c7cda1c146c1acc9a01293e6e5ffcCU01111",
     "Content-Type": "application/json; charset=UTF-8",
@@ -98,7 +98,7 @@ class OrderAPI:
 
 #print(Config.IG_API_KEY)
 
-#test = OrderAPI("f6e357f2b8a0083bd5b89bd188e64ae2e159c1b4", "demoaccount20212", "2JRjuUL7ypv3")
+#test = OrderAPI("apikey", "demoaccount20212", "apipass")
 #test.get_tokens()
 #testorder = test.create_order("USD", test.get_epic("AMD"))
 #test.execute_order(testorder)
