@@ -139,6 +139,9 @@ def login():
         return redirect(url_for('index'))
     return render_template('login.html', form=form)
 
+@app.route("/dashboard")
+def dashboard():
+    return render_template('dashboard.html')
 
 @app.route('/logout')
 def logout():
